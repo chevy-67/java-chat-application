@@ -1,8 +1,21 @@
+import exceptions.*;
+
 import java.net.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Receve {
     public static void main(String[] args) throws Exception {
-        int port = 2929;
+        Scanner inp = new Scanner(System.in);
+        int port;
+        System.out.print("Enter Incoming Port : ");
+        try {
+            port = inp.nextInt();
+        } catch (InputMismatchException e) {
+            inp.nextLine();
+            throw new InvalidPort("Please Enter valid port number");
+        }
+
         System.out.println("Waiting for message...");
         DatagramSocket datSoc = new DatagramSocket(port);
         while (true) {
